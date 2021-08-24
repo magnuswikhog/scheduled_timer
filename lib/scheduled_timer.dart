@@ -8,11 +8,11 @@ import 'package:shared_preferences/shared_preferences.dart';
 ///
 class ScheduledTimer{
 
-  String _id;
-  VoidCallback _onExecute;
-  VoidCallback _onMissedSchedule;
-  DateTime _nextRun;
-  Timer _timer;
+  String? _id;
+  late VoidCallback _onExecute;
+  VoidCallback? _onMissedSchedule;
+  DateTime? _nextRun;
+  Timer? _timer;
 
 
 
@@ -30,7 +30,7 @@ class ScheduledTimer{
   /// immediately. If not specified, no action will take place. The missed time will not be cleared automatically, so you'll need
   /// to supply `clearSchedule` if you want to clear the scheduled time.
   ///
-  ScheduledTimer({@required String id, @required VoidCallback onExecute, DateTime defaultScheduledTime, VoidCallback onMissedSchedule}){
+  ScheduledTimer({required String id, required VoidCallback onExecute, DateTime? defaultScheduledTime, VoidCallback? onMissedSchedule}){
     _id = id;
     _onExecute = onExecute;
     _onMissedSchedule = onMissedSchedule;
@@ -49,10 +49,10 @@ class ScheduledTimer{
 
 
   /// The scheduled time of execution. Will return `null` if no time is scheduled.
-  DateTime get scheduledTime => _nextRun;
+  DateTime? get scheduledTime => _nextRun;
 
   /// A string identifying this timer. Used to store and retrieve the scheduled time across app restarts.
-  String get id => _id;
+  String? get id => _id;
 
 
 
@@ -84,7 +84,7 @@ class ScheduledTimer{
     _timer?.cancel();
 
     if( _nextRun != null ){
-      Duration diff = _nextRun.difference(DateTime.now());
+      Duration diff = _nextRun!.difference(DateTime.now());
 
       if( !diff.isNegative ){
         _timer = Timer(diff, () async {
@@ -94,7 +94,7 @@ class ScheduledTimer{
       }
       else{
         if( _onMissedSchedule != null ){
-          _onMissedSchedule();
+          _onMissedSchedule!();
         }
       }
     }
@@ -111,7 +111,7 @@ class ScheduledTimer{
   Future<void> _setNextRun(DateTime nextRun) async {
       _nextRun = nextRun;
       SharedPreferences prefs = await SharedPreferences.getInstance();
-      await prefs.setInt('_scheduledtimer_nextrun_$_id', _nextRun.millisecondsSinceEpoch);
+      await prefs.setInt('_scheduledtimer_nextrun_$_id', _nextRun!.millisecondsSinceEpoch);
   }
 
   Future<void> _clearNextRun() async {
@@ -122,7 +122,7 @@ class ScheduledTimer{
 
   Future<void> _loadStoredNextRun() async {
       SharedPreferences prefs = await SharedPreferences.getInstance();
-      int ts = prefs.getInt('_scheduledtimer_nextrun_$_id');
+      int? ts = prefs.getInt('_scheduledtimer_nextrun_$_id');
       if( ts != null ) _nextRun = DateTime.fromMillisecondsSinceEpoch(ts);
   }
 

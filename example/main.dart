@@ -12,7 +12,7 @@ void main() async {
   ///
   /// If the app is stopped, and restarted again after more than 10 minutes, `onMissedSchedule` will
   /// be executed immediately - which will in turn execute `onExecute`.
-  ScheduledTimer example1;
+  late ScheduledTimer example1;
   example1 = ScheduledTimer(
     id: 'example1',
     onExecute: (){
@@ -37,7 +37,7 @@ void main() async {
   ///
   /// If the app is stopped, and restarted again after more than 10 minutes, `onMissedSchedule` will
   /// be executed immediately - which will in turn execute `onExecute`.
-  ScheduledTimer example2;
+  late ScheduledTimer example2;
   example2 = ScheduledTimer(
     id: 'example2',
     onExecute: (){

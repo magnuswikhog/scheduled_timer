@@ -10,9 +10,11 @@ run in the background using OS-specific scheduling mechanisms, nor does it attem
 
 Add 
 
-`scheduled_timer ^1.0.0`
+`scheduled_timer ^2.0.0` 
 
-to `pubspec.yaml` and import `scheduled_timer.dart` in your `.dart` file. 
+to `pubspec.yaml` and import `scheduled_timer.dart` in your `.dart` file.
+
+For a non null-safe version, use `scheduled_timer ^1.0.0`. 
 
 
 ## How it works
