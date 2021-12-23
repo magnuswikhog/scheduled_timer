@@ -6,17 +6,6 @@ A simple timer that can be scheduled to run at a specific time.
 run in the background using OS-specific scheduling mechanisms, nor does it attempt to wake the device or app.  
  
  
-## Installation
-
-Add 
-
-`scheduled_timer ^2.0.0` 
-
-to `pubspec.yaml` and import `scheduled_timer.dart` in your `.dart` file.
-
-For a non null-safe version, use `scheduled_timer ^1.0.0`. 
-
-
 ## How it works
 
 A `ScheduledTimer` can be scheduled to run at a specific time, rather than after a certain amount of time (which is the case with the normal Flutter `Timer`).
